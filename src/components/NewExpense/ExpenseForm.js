@@ -119,13 +119,13 @@ const ExpenseForm = (props) => {
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
-        <div className="new-expense__control">
+        <div className={`new-expense__control ${!isValidTitle ? "invalid" : ""}`}>
           <label>Title</label>
           <input
-            style={{
+            /* style={{
               borderColor: !isValidTitle ? "red" : "#ccc",
               backgroundColor: !isValidTitle ? "salmon" : "white",
-            }}
+            }} */
             type="text"
             value={enteredTitle}
             onChange={titleChangeHandler}
@@ -136,7 +136,7 @@ const ExpenseForm = (props) => {
           <input
           style={{
             borderColor: !isValidAmount ? "red" : "#ccc",
-            backgroundColor: !isValidAmount ? "salmon" : "white",
+            backgroundColor: !isValidAmount ? "#fee5e5" : "white",
           }}
             type="number"
             min="0.01"
@@ -150,7 +150,7 @@ const ExpenseForm = (props) => {
           <input
           style={{
             borderColor: !isValidDate ? "red" : "#ccc",
-            backgroundColor: !isValidDate ? "salmon" : "white",
+            backgroundColor: !isValidDate ? "#fee5e5" : "white",
           }}
             type="date"
             min="2019-01-01"
