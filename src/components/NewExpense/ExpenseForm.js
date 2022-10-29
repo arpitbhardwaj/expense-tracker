@@ -1,14 +1,16 @@
 import "./ExpenseForm.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ErrorModal from "../UI/ErrorModal";
 
 const ExpenseForm = (props) => {
+  const amountInputRef = useRef();
+
   const [isValidTitle, setIsValidTitle] = useState(true);
   const [isValidAmount, setIsValidAmount] = useState(true);
   const [isValidDate, setIsValidDate] = useState(true);
 
   const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredAmount, setEnteredAmount] = useState("");
+  //const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
 
   const[error, setError] = useState();
@@ -26,12 +28,12 @@ const ExpenseForm = (props) => {
     setEnteredTitle(event.target.value);
   };
 
-  const amountChangeHandler = (event) => {
+  /* const amountChangeHandler = (event) => {
     if(event.target.value.trim().length > 0){
       setIsValidAmount(true);
     }
     setEnteredAmount(event.target.value);
-  };
+  }; */
 
   const dateChangeHandler = (event) => {
     if(event.target.value.trim().length > 0){
@@ -83,6 +85,7 @@ const ExpenseForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    const enteredExpenseAmount = amountInputRef.current.value;
 
     if (enteredTitle.trim().length == 0) {
       setError({
@@ -93,7 +96,12 @@ const ExpenseForm = (props) => {
       return;
     }
 
-    if (enteredAmount.trim().length == 0) {
+    /* if (enteredAmount.trim().length == 0) {
+      setIsValidAmount(false);
+      return;
+    } */
+
+    if (enteredExpenseAmount.trim().length == 0) {
       setIsValidAmount(false);
       return;
     }
@@ -103,9 +111,15 @@ const ExpenseForm = (props) => {
       return;
     }
 
-    const expenseData = {
+    /* const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
+      date: new Date(enteredDate),
+    }; */
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredExpenseAmount,
       date: new Date(enteredDate),
     };
 
@@ -113,7 +127,8 @@ const ExpenseForm = (props) => {
     props.onSaveExpenseData(expenseData);
 
     setEnteredTitle("");
-    setEnteredAmount("");
+    //setEnteredAmount("");
+    amountInputRef.current.value = "";
     setEnteredDate("");
   };
 
@@ -148,8 +163,9 @@ const ExpenseForm = (props) => {
             type="number"
             min="0.01"
             step="0.01"
-            value={enteredAmount}
-            onChange={amountChangeHandler}
+            /* value={enteredAmount}
+            onChange={amountChangeHandler} */
+            ref={amountInputRef}
           />
         </div>
         <div className="new-expense__control">
