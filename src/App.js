@@ -4,6 +4,7 @@ import NewExpense from "./components/NewExpense/NewExpense";
 import { useState, Fragment } from "react";
 import Wrapper from "./components/Helpers/Wrapper"
 
+
 const DUMMY_EXPENSES = [
   {
     id: "e1",
@@ -64,7 +65,7 @@ function App() {
       <NewExpense onAddExpense={addExpenseHandler}/>
       <Expenses items={expenses} />
     </> */}
-    
+      
       <NewExpense onAddExpense={addExpenseHandler}/>
       <Expenses items={expenses} />
     </Fragment>

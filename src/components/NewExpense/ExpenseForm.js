@@ -1,5 +1,6 @@
 import "./ExpenseForm.css";
 import { useState } from "react";
+import ErrorModal from "../UI/ErrorModal";
 
 const ExpenseForm = (props) => {
   const [isValidTitle, setIsValidTitle] = useState(true);
@@ -9,6 +10,8 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+
+  const[error, setError] = useState();
 
   /* const[userInput, setUserInput] = useState({
     enteredTitle:"",
@@ -81,23 +84,21 @@ const ExpenseForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (
-      enteredTitle.trim().length == 0
-    ) {
+    if (enteredTitle.trim().length == 0) {
+      setError({
+        title:"Invalid Input",
+        message:"Please enter a valid title (non empty value)"
+      });
       setIsValidTitle(false);
       return;
     }
 
-    if (
-      enteredAmount.trim().length == 0
-    ) {
+    if (enteredAmount.trim().length == 0) {
       setIsValidAmount(false);
       return;
     }
 
-    if (
-      enteredDate.trim().length == 0
-    ) {
+    if (enteredDate.trim().length == 0) {
       setIsValidDate(false);
       return;
     }
@@ -116,7 +117,13 @@ const ExpenseForm = (props) => {
     setEnteredDate("");
   };
 
+  const errorHandler = () => {
+    setError(null);
+  };
+
   return (
+    <div>
+    {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/>}
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className={`new-expense__control ${!isValidTitle ? "invalid" : ""}`}>
@@ -164,6 +171,7 @@ const ExpenseForm = (props) => {
         <button type="submit">Add Expense</button>
       </div>
     </form>
+    </div>
   );
 };
 
