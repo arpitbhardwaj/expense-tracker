@@ -4,6 +4,9 @@ import NewExpense from "./components/NewExpense/NewExpense";
 import { useState, Fragment } from "react";
 import Wrapper from "./components/Helpers/Wrapper"
 
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
 
 const DUMMY_EXPENSES = [
   {
@@ -50,6 +53,18 @@ function App() {
       return [expense, ...prevExpenses];
     })
   }
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+  };
   
   return (
     <Fragment>
@@ -65,9 +80,15 @@ function App() {
       <NewExpense onAddExpense={addExpenseHandler}/>
       <Expenses items={expenses} />
     </> */}
+
+    {/* <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main> */}
       
-      <NewExpense onAddExpense={addExpenseHandler}/>
-      <Expenses items={expenses} />
+      <NewExpense isAuthenticated={isLoggedIn} onAddExpense={addExpenseHandler}/>
+      <Expenses isAuthenticated={isLoggedIn} items={expenses} />
     </Fragment>
   ); 
 
