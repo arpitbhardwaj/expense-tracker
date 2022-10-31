@@ -81,14 +81,16 @@ function App() {
       <Expenses items={expenses} />
     </> */}
 
-    {/* <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+    <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {isLoggedIn && <Home onLogout={logoutHandler} />}
-      </main> */}
+        {isLoggedIn && <NewExpense isAuthenticated={isLoggedIn} onAddExpense={addExpenseHandler}/>}
+        {isLoggedIn && <Expenses isAuthenticated={isLoggedIn} items={expenses} />}
+      </main>
       
-      <NewExpense isAuthenticated={isLoggedIn} onAddExpense={addExpenseHandler}/>
-      <Expenses isAuthenticated={isLoggedIn} items={expenses} />
+      {/* <NewExpense isAuthenticated={isLoggedIn} onAddExpense={addExpenseHandler}/>
+      <Expenses isAuthenticated={isLoggedIn} items={expenses} /> */}
     </Fragment>
   ); 
 
