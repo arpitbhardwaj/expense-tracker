@@ -1,8 +1,8 @@
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 //import React from "react";
-import { useState, Fragment } from "react";
-import Wrapper from "./components/Helpers/Wrapper"
+import { useState, Fragment, useEffect } from "react";
+//import Wrapper from "./components/Helpers/Wrapper"
 
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
@@ -56,13 +56,21 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  //runs only ones when the app starts or in  other words if you refresh the browser
+  useEffect(() => {
+    const storedUserLoggedInInfo = localStorage.getItem("isLoggedIn");
+    if(storedUserLoggedInInfo === "1"){
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const loginHandler = (email, password) => {
-    // We should of course check email and password
-    // But it's just a dummy/ demo anyways
+    localStorage.setItem("isLoggedIn", "1");
     setIsLoggedIn(true);
   };
 
   const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
   
